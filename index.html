@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/navbar.css">
+</head>
+<body>
+    <div id = "header"></div>
+    <div id = "container"></div>
+    
+</body>
+</html>
+<script type = "module">
+    import navbar from './components/navbar.js'
+    let head = navbar();
+    document.getElementById("header").innerHTML= head 
+</script>
+<script type = "module">
+    import {getDataFun,appendDataFun} from './scripts/fetchappend.js';
+    let timerid;
+    let searchvalue = document.getElementById("searchvalue")
+
+    const main= async ()=>
+    {
+        try{
+            let container = document.querySelector("#container");
+            container.innerHTML="";
+            let value = searchvalue.value;
+            console.log("value:",value);
+            if(value === "")
+            {
+                return false;
+            }
+            
+            let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`
+            let data = await getDataFun(url);
+            if(data==undefined)
+            {
+                container.innerText= "No Items";
+                return false;
+            }
+            else{
+                container.innerText= "";
+            }
+            console.log("data:",data);
+            appendDataFun(data,container);
+        }
+        catch(err)
+        {
+            console.log("err:",err);
+        }
+
+    }
+
+    const debounce= (func, delay)=>{
+
+        if(timerid)
+        {
+            clearTimeout(timerid);
+        }
+
+        timerid = setTimeout(function(){
+            func()//stillthe main() function
+        },delay)
+
+    }
+    searchvalue.oninput = function()
+    {
+        debounce(main, 4000);
+    };
+
+</script>

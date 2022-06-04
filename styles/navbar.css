@@ -1,0 +1,32 @@
+#navbar{
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    background-color: whitesmoke;
+    align-items: center;
+    
+}
+#navbar>div>a{
+    text-decoration: none;
+    color:black
+}
+
+.searchbox
+{
+    display: flex;
+    width: 50%;
+    
+}
+#navbar img{
+    height: 80px;
+}
+#navbar>div>input
+{
+    width: 80%;
+    padding:15px;
+    align-self: center;
+}
+#navbar>div>img{
+    width: 10%;
+    height: 80%;
+}
